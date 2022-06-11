@@ -1,26 +1,46 @@
-import { useState, useEffect } from "react";
+import type {
+    GetStaticPathsResult,
+    GetStaticPropsContext,
+    GetStaticPropsResult,
+} from 'next'
 
+type PageParams = {
+   uuid: string
+}
 
-const Champs = () => {
-    const [champs, setChamps] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [champ, setChamp] = useState(null);
-    const [champId, setChampId] = useState(null);
-    const [champName, setChampName] = useState(null);
-    const [champImg, setChampImg] = useState(null);
-    const [champLore, setChampLore] = useState(null);
+type ContentPageProps = {
+   title: string
+   description: string
+}
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch(`https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json`);
-            const data = await res.json();
-            setChamps(data.data);
-            setLoading(false);
-        }
-        fetchData();
-    }, []);
-
+export default const AllChamps = ({ title, description }: ServicePageProps): JSX.Element => {
     return (
-        
+        <>
+             <h1>{title}</h1>
+             <p>{description}</p>
+        </>
     )
+}
+
+export const getStaticProps = async ({
+    params,
+}: GetStaticPropsContext<PageParams>): Promise<
+    GetStaticPropsResult<ContentPageProps>
+> => {
+    const { title, description } = await fetch(".../entity", { uuid: params.uuid })
+    return {
+        props: {
+            title,
+            description,
+        },
+    }
+}
+
+export const getStaticPaths = async ({}): Promise<
+    GetStaticPathsResult<PageParams>
+> => {
+    return {
+        paths: { params: { uuid: "54b659a1-3f20-4440-90b5-9107bd62b5ca" }},
+        fallback: false,
+    }
+}

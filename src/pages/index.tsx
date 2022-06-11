@@ -1,24 +1,24 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
-import { getChamps } from "../utils/fetchRandom.ts"
 import axios from "axios";
 import { useState, useEffect } from "react";
-import handler, { fetchInfo } from "../server/routers/champs";
-import fetchVersionInfo from "../utils/versionChecker";
+import { GetStaticProps, GetStaticPropsContext } from 'next'
+import ChampsDataRenderExample, { getStaticProps } from "../server/routers/champs";
+import { ChampionsEndPointDataType } from "../zod/models/championModel";
+import { getStaticPaths } from "../components/fetchChamps";
 
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
   const hello = trpc.useQuery( ["hello", { text: "from tRPC" }] );
   const exampleData = trpc.useQuery( ["example"] );
   const { invalidateQueries } = trpc.useContext();
   const createExample = trpc.useMutation( "create-example", {
     onSuccess: () => invalidateQueries( "example" ),
   } );
+  console.log(props);
+  console.log(ChampsDataRenderExample);
+  console.log(getStaticProps);
 
-  const info = ()=> {
-    return fetchVersionInfo();
-  } 
-  
 const tryfetch = async () => {
   try {
     const res = await axios.get('http://ddragon.leagueoflegends.com/cdn/12.11.1/data/en_US/champion.json');
@@ -103,7 +103,7 @@ const tryfetch = async () => {
               </div>
 
               <div className="stat">
-                <div className="stat-title">{info}</div>
+                <div className="stat-title">Title</div>
               </div>
               <div className="stat">
                 <div className="stat-title">Current balance</div>
