@@ -1,46 +1,32 @@
-import type {
-    GetStaticPathsResult,
-    GetStaticPropsContext,
-    GetStaticPropsResult,
-} from 'next'
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-type PageParams = {
-   uuid: string
-}
+export default function ChampionsEndPointData() {
+    const [championsData, setChampionsData] = useState( [] );
 
-type ContentPageProps = {
-   title: string
-   description: string
-}
+    useEffect( () => {
+        getAllChampions()
 
-export default const AllChamps = ({ title, description }: ServicePageProps): JSX.Element => {
-    return (
-        <>
-             <h1>{title}</h1>
-             <p>{description}</p>
-        </>
-    )
-}
+    }, [] );
 
-export const getStaticProps = async ({
-    params,
-}: GetStaticPropsContext<PageParams>): Promise<
-    GetStaticPropsResult<ContentPageProps>
-> => {
-    const { title, description } = await fetch(".../entity", { uuid: params.uuid })
-    return {
-        props: {
-            title,
-            description,
-        },
+    const url = "https://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json";
+
+    const getAllChampions = () => {
+        axios.get( url ).then( res => {
+            const setChampionsData = res.data.data;
+        } )
+            .catch( err => 
+                console.log( err ));
     }
+    return ( championsData );
+
+
 }
 
-export const getStaticPaths = async ({}): Promise<
-    GetStaticPathsResult<PageParams>
-> => {
-    return {
-        paths: { params: { uuid: "54b659a1-3f20-4440-90b5-9107bd62b5ca" }},
-        fallback: false,
-    }
-}
+//fetch champion.json
+//randomly pick a champion like so champion[n] where it calls a random number that 
+//is in the range of the length of the array of champions.
+
+//then pass the needed feilds to the component and display the champion's name,
+//also use data to parse needed data to another request to get the image url etc.
+

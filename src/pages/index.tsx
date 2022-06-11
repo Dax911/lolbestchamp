@@ -19,15 +19,21 @@ const Home: NextPage = (props) => {
   console.log(ChampsDataRenderExample);
   console.log(getStaticProps);
 
-const tryfetch = async () => {
-  try {
-    const res = await axios.get('http://ddragon.leagueoflegends.com/cdn/12.11.1/data/en_US/champion.json');
-    const champions = res.data;
-    return { champions };
-  } catch (error) {
-    console.log(error);
+async function tryFetch() {
+  const response = await axios.get("http://ddragon.leagueoflegends.com/cdn/12.11.1/data/en_US/champion.json");
+    console.log(response.data);
+    const output = await Promise.resolve(response.data);
+    return output.data.JSON;
+  } 
+
+  tryFetch().then(data => {
+    const { data: champs } = data;
+    console.log(champs);
   }
-}
+  );
+  
+  console.log(tryFetch());
+
   return (
     
 
@@ -103,7 +109,7 @@ const tryfetch = async () => {
               </div>
 
               <div className="stat">
-                <div className="stat-title">Title</div>
+                <div className="stat-title">{tryFetch()}</div>
               </div>
               <div className="stat">
                 <div className="stat-title">Current balance</div>
