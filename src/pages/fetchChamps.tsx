@@ -7,14 +7,29 @@ import { ChampionsEndPointDataType } from "../zod/models/championModel";
 export default function FirstRandChamp(props: any ) {
     console.log(props["champs"]);
 
-    let obj = props["champs"];
-    let index = [];
+    const obj = props["champs"];
+    const index = [];
     for (var i in props["champs"]) {
         index.push(i);
     }
     index.sort(function(a, b){
         return a== b ? 0 : a < b ? -1 : 1;
     })
+
+    // 👇️ key is optional (could be undefined)
+    //this is an example fix for not having undefined
+//const obj1: { key?: string } = {
+  //  key: 'name',
+  //};
+  
+  //const obj2 = {
+  //  name: 'James Doe',
+  //};
+  
+  //const result = obj1.key != undefined ? obj2[obj1.key as keyof typeof obj2] : '';
+  
+  //console.log(result); // 👉️ "James Doe"
+  
     console.log(obj[index[1]]);
 
     //so get size of obj and then get random number between 0 and size of obj
