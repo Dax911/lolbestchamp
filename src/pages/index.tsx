@@ -23,13 +23,13 @@ const Home: NextPage = () => {
       
       <div className="flex flex-col items-center justify-center p-24 min-h-screen mx-auto">
         <h1 className="font-extrabold text-center text-7xl">
-          Which champion do you like better?
+          Which Champion is better?
         </h1>
 
         <div className="w-fit">
           
-          <div className="py-6 text-2xl">
-            Here is the subtitle Stuff
+          <div className="py-6 text-2xl justify-center items-center flex-col flex">
+            Finally, answering the age old question of the best Champion.
           </div>
           <div className="py-6 text-2xl">
       
@@ -40,34 +40,67 @@ const Home: NextPage = () => {
                 <figure><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg" alt="car!"/></figure>
             
                   <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
+                <h2 className="card-title text-4xl">Life hack</h2>
                   <p>How to park your car at your garage?</p>
+                    <p>Here is ln 2</p>
+                    <p> ln 3 </p>
               <div className="card-actions justify-end">
-            <button className="btn btn-primary">Learn now!</button>
+            <button className="btn btn-accent">Learn now!</button>
           </div>
         </div>
       </div> 
 
-              <div className="cent... p-8 italic text-xl">OR</div>
-
+  
+  <div className="p-24 divider divider-horizontal">OR</div>
             <div className="flex-1 card w-1/2 glass">
-                <figure><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg" alt="car!"/></figure>
-              
+              <div className="carousel">
+                  <div className="carousel-item w-full">
+                <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg" className="carousel-item w-full" alt="car!"/>
+                <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_1.jpg" className="carousel-item w-full" alt="car!"/>
+             
+                 <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_2.jpg" className="carousel-item w-full" alt="car!"/>
+             
+                 <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_3.jpg" className="w-full carousel-item" alt="car!"/>
+                  </div>   
+          
+              </div>
 
             <div className="card-body">
-              <h2 className="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
+              <h2 className="card-title text-4xl">Ahri</h2>
+                  <p>Innately connected to the latent power of Runeterra, Ahri is a vastaya who can reshape magic into orbs of raw energy. She revels in toying with her prey by manipulating their emotions before devouring their life essence. Despite her predatory nature, Ahri retains a sense of empathy as she receives flashes of memory from each soul she consumes.</p>
+              <div className="badge badge-info badge-lg"> Tag </div>
               <div className="card-actions justify-end">
-            <button className="btn btn-primary">Learn now!</button>
+            <button className="btn btn-accent">Learn now!</button>
           </div>
         </div>
       </div>  
   </div>
             </div>
               
+          </div>
+          <div>
+            <div class="stats bg-primary text-primary-content">
+  
+  <div className="stat">
+    <div className="stat-title">Account balance</div>
+    <div className="stat-value">$89,400</div>
+    <div className="stat-actions">
+      <button className="btn btn-sm btn-success">Add funds</button>
+    </div>
+  </div>
+  
+  <div className="stat">
+    <div className="stat-title">Current balance</div>
+    <div className="stat-value">$89,400</div>
+    <div className="stat-actions">
+      <button className="btn btn-sm">Withdrawal</button> 
+      <button className="btn btn-sm">deposit</button>
+    </div>
+  </div>
+  
+</div>
 
           </div>
-        </div>
       </div>
     </div>
       </> 
