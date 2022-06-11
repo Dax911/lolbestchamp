@@ -6,6 +6,9 @@ const imageBaseURL = 'http://ddragon.leagueoflegends.com/cdn/img/champion/splash
 export async function getChamps() {
 const requestChamListURL = 'http://ddragon.leagueoflegends.com/cdn/12.11.1/data/en_US/champion.json'
 
+const response = await fetch(requestChamListURL)
+
+
 const request = new Request(requestChamListURL)
 const response = await fetch(request)
 
