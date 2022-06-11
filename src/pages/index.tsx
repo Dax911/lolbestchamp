@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { trpc } from "../utils/trpc";
 import { ChampionsEndPointDataType } from "../zod/models/championModel";
+import FirstRandChamp from "./fetchChamps";
 import ChampsTimeLine from "./fetchChamps";
 import Page1 from "./fetchChamps";
 
@@ -57,25 +58,10 @@ const Home: NextPage = (props) => {
           </div>
           <div className="py-6 text-2xl">
             <div className="flex">
-              <div className="flex flex-col items-center justify-between md:flex-row animate-fade-in">
-                <div className="flex-1 w-1/2 card glass">
-                  <figure>
-                    <img
-                      src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
-                      alt="car!"
-                    />
-                  </figure>
+            <div className="flex flex-col items-center justify-between md:flex-row animate-fade-in">
 
-                  <div className="card-body">
-                    <h2 className="text-4xl card-title">Life hack</h2>
-                    <p>How to park your car at your garage?</p>
-                    <p>Here is ln 2</p>
-                    <p> ln 3 </p>
-                    <div className="justify-end card-actions">
-                      <button className="btn btn-accent">VOTE</button>
-                    </div>
-                  </div>
-                </div>
+            <FirstRandChamp champs={champions} />
+
 
                 <div className="p-24 divider divider-horizontal">OR</div>
                 <div className="flex-1 w-1/2 card glass">
@@ -140,14 +126,13 @@ const Home: NextPage = (props) => {
                 <div className="stat-actions">
                   <button className="btn btn-sm">Withdrawal</button>
                   <button className="btn btn-sm">deposit</button>
-                  <ChampsTimeLine champs={champions} />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      </div>
   );
 };
 
