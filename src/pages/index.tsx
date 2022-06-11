@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <div className="w-fit">
           
           <div className="py-6 text-2xl">
-            Here is the subtitle
+            Here is the subtitle Stuff
           </div>
           <div className="py-6 text-2xl">
       
