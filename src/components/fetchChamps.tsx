@@ -22,11 +22,13 @@ export default function ChampionsEndPointData() {
 
 
 }
+/*
+fetch champion.json (could be server side if wanted that way the client would alway 
+have access to the entire champion list.)
 
-//fetch champion.json
-//randomly pick a champion like so champion[n] where it calls a random number that 
-//is in the range of the length of the array of champions.
+randomly pick a champion like so champion[n] where it calls a random number that 
+is in the range of the length of the array of champions.
 
-//then pass the needed feilds to the component and display the champion's name,
-//also use data to parse needed data to another request to get the image url etc.
-
+then pass the needed feilds to the component and display the champion's name,
+also use data to parse needed data to another request to get the image url etc.
+*/
