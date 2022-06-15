@@ -1,13 +1,14 @@
 import axios from "axios";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useReducer, Fragment } from "react";
 import { trpc } from "../utils/trpc";
 import { ChampionsEndPointDataType } from "../zod/models/championModel";
 import FirstRandChamp from "./fetchChamps";
 import ChampsTimeLine from "./fetchChamps";
 import Page1 from "./fetchChamps";
 import lol from "riot-lol";
+import { getComparisonPlayers, getLatestVersion, getVersionData} from "../../src/components/functions"
 
 const Home: NextPage = (props) => {
   const hello = trpc.useQuery(["hello", { text: "from tRPC" }]);
@@ -16,39 +17,40 @@ const Home: NextPage = (props) => {
   const createExample = trpc.useMutation("create-example", {
     onSuccess: () => invalidateQueries("example"),
   });
-
-  const [champions, getChampions] = useState<ChampionsEndPointDataType[]>([]);
-
-  const url =
-    "http://ddragon.leagueoflegends.com/cdn/12.11.1/data/en_US/champion.json";
+ 
+  const [serverData, setServerData] = useState<ChampionsEndPointDataType[]>([]);
+  const [champs, setChamps] = useState<ChampionsEndPointDataType[]>([]);
+  const [rerollid, reroll] = useReducer(() => (Date.now()), Date.now());
 
   useEffect(() => {
-    getAllChampions();
+    getLatestVersion()
+      .then(getVersionData)
+      .then(setServerData);
   }, []);
- 
-  const getAllChampions = () => {
-    axios
-      .get(url)
-      .then((response) => {
-        const allChampions = response.data.data;
-        getChampions(allChampions);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  lol
-  .getChampion("Aatrox")
-  .then((champion: { spriteCss: any; }) => {
-    console.log(champion.spriteCss)
-    console.log(champion);
-  })
-  .catch((err: any) => {
-    console.log(err);
-  });
-//=> sprite CSS of the champion "Aatrox"
+  useEffect(() => {
+    if (serverData.length) {
+      Promise.resolve(serverData)
+        .then(getComparisonPlayers)
+        .then(setChamps);
+    }
+  }, [serverData, rerollid]);
 
+  const playerChildren = useMemo(() => {
+    if (champs.length === 0) return null;
+    const children = champs.map((champ) => (
+      <div key={champ.key} className="stat">
+        <div className="stat-title">{champ.name}</div>
+      </div>
+    ));
+
+    return (
+      <Fragment>
+        {children}
+        <button onClick={reroll}>Reroll</button>
+      </Fragment>
+    );
+  }, [champs, reroll]);
 
   return (
     <div>
@@ -73,7 +75,6 @@ const Home: NextPage = (props) => {
             <div className="flex">
             <div className="flex flex-col items-center justify-between md:flex-row animate-fade-in">
 
-            <FirstRandChamp champs={champions} />
 
 
                 <div className="p-24 divider divider-horizontal">OR</div>
@@ -130,9 +131,8 @@ const Home: NextPage = (props) => {
                 </div>
               </div>
 
-              <div className="stat">
-                <div className="stat-title">Title</div>
-              </div>
+              {playerChildren}
+
               <div className="stat">
                 <div className="stat-title">Current balance</div>
                 <div className="stat-value">$89,400</div>

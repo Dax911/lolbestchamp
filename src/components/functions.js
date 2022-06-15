@@ -1,14 +1,14 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 
 const URI = 'https://ddragon.leagueoflegends.com';
 
 const getVersions = async () => {
-	const response = await fetch(`${URI}/api/versions.json`);
-	const versions = await response.json();
+	const response = await axios(`${URI}/api/versions.json`);
+	const versions = await response.data;
 	return versions;
 };
 
-const getLatestVersion = async () => {
+export const getLatestVersion = async () => {
 	const versions = await getVersions();
 	return versions[0];
 };
@@ -34,9 +34,9 @@ const getVersionData = async (version) => {
 	return results;
 };*/
 
-const getVersionData = async (version) => {
-	const response = await fetch(`${URI}/cdn/${version}/data/en_US/champion.json`);
-	const data = await response.json();
+export const getVersionData = async (version) => {
+	const response = await axios(`${URI}/cdn/${version}/data/en_US/champion.json`);
+	const data = await response.data;
 	const keys = Object.keys(data.data);
 	const results = keys.reduce((acc, key, index) => ([
 		...acc,
@@ -51,7 +51,7 @@ const getRandomPlayer = async (data) => {
 	return randomPlayer;
 };
 
-const getCoparisonPlayers = async (data) => {
+export const getComparisonPlayers = async (data) => {
 	const indexA = Math.floor(Math.random() * data.length);
 	const indexB = Math.floor(Math.random() * data.length);
 	if (indexA === indexB) return getCoparisonPlayers(data);
@@ -61,8 +61,7 @@ const getCoparisonPlayers = async (data) => {
 const test = async () => {
 	const version = await getLatestVersion();
 	const data = await getVersionData(version);
-	const randomPlayer = await getCoparisonPlayers(data);
+	const randomPlayer = await getComparisonPlayers(data);
 	console.log(randomPlayer);
 };
 
-test();

@@ -10,11 +10,6 @@
  //This model is what we will use to validate our data from this endpoint http://ddragon.leagueoflegends.com/cdn/12.11.1/data/en_US/champion.json singular call gets all champions
  
  const ChampionsModel = z.object({
-    type: z.string(),
-    format: z.string(),
-    version: z.string(),
-    data: z.object({
-      Champ: z.object({
         version: z.string(),
         id: z.string(),
         key: z.string(),
@@ -60,9 +55,8 @@
           attackspeedperlevel: z.number(),
           attackspeed: z.number(),
         }),
-      }),
-    }),
-  });
+    })
+  ;
 
   export type ChampionsEndPointDataType = z.infer<typeof ChampionsModel>;
 
