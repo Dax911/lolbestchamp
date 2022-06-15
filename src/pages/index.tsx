@@ -8,10 +8,13 @@ import FirstRandChamp from "./fetchChamps";
 import ChampsTimeLine from "./fetchChamps";
 import Page1 from "./fetchChamps";
 import lol from "riot-lol";
-import { getComparisonPlayers, getLatestVersion, getVersionData} from "../../src/components/functions"
+import {
+  getComparisonPlayers,
+  getLatestVersion,
+  getVersionData,
+} from "../../src/components/functions";
 
 const Home: NextPage = (props) => {
-
   //this all needs to be trpc voting logic
   const hello = trpc.useQuery(["hello", { text: "from tRPC" }]);
   const exampleData = trpc.useQuery(["example"]);
@@ -19,77 +22,58 @@ const Home: NextPage = (props) => {
   const createExample = trpc.useMutation("create-example", {
     onSuccess: () => invalidateQueries("example"),
   });
- 
+
   const [serverData, setServerData] = useState<ChampionsEndPointDataType[]>([]);
   const [champs, setChamps] = useState<ChampionsEndPointDataType[]>([]);
-  const [rerollid, reroll] = useReducer(() => (Date.now()), Date.now());
+  const [rerollid, reroll] = useReducer(() => Date.now(), Date.now());
 
   useEffect(() => {
-    getLatestVersion()
-      .then(getVersionData)
-      .then(setServerData);
+    getLatestVersion().then(getVersionData).then(setServerData);
   }, []);
 
   useEffect(() => {
     if (serverData.length) {
-      Promise.resolve(serverData)
-        .then(getComparisonPlayers)
-        .then(setChamps);
+      Promise.resolve(serverData).then(getComparisonPlayers).then(setChamps);
     }
   }, [serverData, rerollid]);
 
   const playerChildren = useMemo(() => {
     if (champs.length === 0) return null;
     const children = champs.map((champ) => (
-<div className="py-6 text-2xl" key={champ.key}>
-            <div className="flex">
-            <div className="flex flex-col items-center justify-between md:flex-row animate-fade-in">
+      <div className="flex flex-row justify-between p-12" key={champ.id}>
+        <div className="justify-between flex-1 w-1/2 card glass">
+          <div className="carousel">
+            <div className="w-full carousel-item">
+              <img
+                src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ.id}_1.jpg`}
+                className="w-full carousel-item"
+                alt="car!"
+              />
 
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_2.jpg"
+                className="w-full carousel-item"
+                alt="car!"
+              />
 
-
-                <div className="flex-1 w-1/2 card glass">
-                  <div className="carousel">
-                    <div className="w-full carousel-item">
-                      <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ.id}_1.jpg`}
-                        className="w-full carousel-item"
-                        alt="car!"
-                      />
-
-                      <img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_2.jpg"
-                        className="w-full carousel-item"
-                        alt="car!"
-                      />
-
-                      <img
-                        src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_3.jpg"
-                        className="w-full carousel-item"
-                        alt="car!"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="card-body">
-                    <h2 className="text-4xl card-title">{champ.name}</h2>
-                    <p>
-                      {champ.blurb}
-                    </p>
-                    <div className="badge badge-info badge-lg"> Tag </div>
-                    <div className="justify-end card-actions">
-                      <button className="btn btn-accent">VOTE</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img
+                src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_3.jpg"
+                className="w-full carousel-item"
+                alt="car!"
+              />
             </div>
           </div>
-          
 
-
-
- 
-      
+          <div className="card-body">
+            <h2 className="text-4xl card-title">{champ.name}</h2>
+            <p>{champ.blurb}</p>
+            <div className="badge badge-info badge-lg"> Tag </div>
+            <div className="justify-end card-actions">
+              <button className="btn btn-accent">VOTE</button>
+            </div>
+          </div>
+        </div>
+      </div>
     ));
 
     return (
@@ -119,11 +103,16 @@ const Home: NextPage = (props) => {
           <div className="flex flex-col items-center justify-center py-6 text-2xl">
             Finally, answering the age old question of the best Champion.
           </div>
-          {playerChildren}
-          
+
+          <div className="py-6 text-2xl">
+            <div className="flex">
+              <div className="flex flex-col items-center justify-between p-12 md:flex-row animate-fade-in"></div>
+              {playerChildren}
+            </div>
+          </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 
