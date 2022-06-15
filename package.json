@@ -15,6 +15,7 @@
     "@trpc/react": "^9.23.4",
     "@trpc/server": "^9.23.4",
     "axios": "^0.27.2",
+    "babel-runtime": "^6.26.0",
     "daisyui": "^2.15.3",
     "next": "12.1.6",
     "node-fetch": "^3.2.6",
@@ -33,6 +34,7 @@
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",
     "prisma": "^3.14.0",
+    "riot-lol": "^1.6.0",
     "tailwindcss": "^3.0.24",
     "typescript": "4.6.4"
   }

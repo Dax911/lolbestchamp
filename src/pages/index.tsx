@@ -7,6 +7,7 @@ import { ChampionsEndPointDataType } from "../zod/models/championModel";
 import FirstRandChamp from "./fetchChamps";
 import ChampsTimeLine from "./fetchChamps";
 import Page1 from "./fetchChamps";
+import lol from "riot-lol";
 
 const Home: NextPage = (props) => {
   const hello = trpc.useQuery(["hello", { text: "from tRPC" }]);
@@ -36,6 +37,18 @@ const Home: NextPage = (props) => {
         console.log(err);
       });
   };
+
+  lol
+  .getChampion("Aatrox")
+  .then((champion: { spriteCss: any; }) => {
+    console.log(champion.spriteCss)
+    console.log(champion);
+  })
+  .catch((err: any) => {
+    console.log(err);
+  });
+//=> sprite CSS of the champion "Aatrox"
+
 
   return (
     <div>
