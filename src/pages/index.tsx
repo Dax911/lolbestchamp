@@ -1,13 +1,8 @@
-import axios from "axios";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState, useMemo, useReducer, Fragment } from "react";
 import { trpc } from "../utils/trpc";
 import { ChampionsEndPointDataType } from "../zod/models/championModel";
-import FirstRandChamp from "./fetchChamps";
-import ChampsTimeLine from "./fetchChamps";
-import Page1 from "./fetchChamps";
-import lol from "riot-lol";
 import {
   getComparisonPlayers,
   getLatestVersion,
@@ -49,25 +44,13 @@ const Home: NextPage = (props) => {
                 className="w-full carousel-item"
                 alt="car!"
               />
-
-              <img
-                src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_2.jpg"
-                className="w-full carousel-item"
-                alt="car!"
-              />
-
-              <img
-                src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_3.jpg"
-                className="w-full carousel-item"
-                alt="car!"
-              />
             </div>
           </div>
 
           <div className="card-body">
             <h2 className="text-4xl card-title">{champ.name}</h2>
             <p>{champ.blurb}</p>
-            <div className="badge badge-info badge-lg"> Tag </div>
+            <div className="badge badge-info badge-lg"> {champ.tags} </div>
             <div className="justify-end card-actions">
               <button className="btn btn-accent">VOTE</button>
             </div>
