@@ -25,7 +25,7 @@ const Home: NextPage = (props) => {
   useEffect(() => {
     getAllChampions();
   }, []);
-
+ 
   const getAllChampions = () => {
     axios
       .get(url)
