@@ -42,7 +42,7 @@ const Home: NextPage = (props) => {
               <img
                 src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champ.id}_1.jpg`}
                 className="w-full carousel-item"
-                alt="car!"
+                alt={`${champ.name} splash`}
               />
             </div>
           </div>
